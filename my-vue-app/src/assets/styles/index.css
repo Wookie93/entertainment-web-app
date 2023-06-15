@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  font-size: 16px;
+}
+
 * {
   font-family: 'Outfit', 'sans';
-  font-size: 15px;
-  font-weight: 500;
+  @apply text-sm font-medium sm:text-base
 }
 
 body {
@@ -16,4 +19,8 @@ h2 {
   font-size: 20px;
   font-weight: 300;
   letter-spacing: -0.3125px;
+}
+
+section {
+  margin-bottom: 24px;
 }
