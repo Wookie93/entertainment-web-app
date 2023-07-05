@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#FC4747',
+        'bcg-primary': '#FC4747',
         'bcg-dark': '#10141E',
         'bcg-light': '#161D2F',
         'gray-blue': '#5A698F',

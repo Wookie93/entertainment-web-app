@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   font-size: 16px;
 }
 
-* {
+*,
+*::after,
+*::before {
   font-family: 'Outfit', 'sans';
-  @apply text-sm font-medium sm:text-base
+  @apply text-base font-medium;
 }
 
 body {
@@ -16,11 +18,46 @@ body {
 }
 
 h2 {
-  font-size: 20px;
-  font-weight: 300;
-  letter-spacing: -0.3125px;
+  @apply tracking-[-0.3125px] font-light text-xl sm:text-[32px];
 }
 
 section {
-  margin-bottom: 24px;
+  @apply mb-6 sm:mb-11 lg:mb-9 xl:mb-12;
+}
+
+.dotted span::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  margin: 0 6px 0 2px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.dotted span:last-child::after {
+  display: none;
+}
+
+.btn {
+  @apply h-12 px-4 rounded-md cursor-pointer transition hover:brightness-50;
+}
+
+.btn-primary {
+  @apply bg-bcg-primary text-white;
+}
+
+.btn-secondary {
+  @apply bg-white text-black;
+}
+
+.visually-hidden {
+  border-width: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
 }
