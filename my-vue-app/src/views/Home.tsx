@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import ItemList from '../components/atoms/ListGrid/ItemList.tsx';
 import MovieBox from '../components/molecules/MovieBox/MovieBox';
 import Trending from '../components/organism/Trending/Trending.tsx';
+//import { moviesCollection, trendingCollection } from '../lib/firebase.tsx';
+import { Outlet } from 'react-router-dom';
 
 const HomePage = () => {
   const [data, setData] = useState([]);
@@ -32,6 +34,7 @@ const HomePage = () => {
           <MovieBox key={index} data={movie} />
         ))}
       </ItemList>
+      <Outlet />
     </>
   );
 };

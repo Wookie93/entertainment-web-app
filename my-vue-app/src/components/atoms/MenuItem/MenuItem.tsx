@@ -1,22 +1,25 @@
 import { NavLink } from 'react-router-dom';
 
 interface MenuItemProps {
-  img: string;
-  alt: string;
+  img?: string;
+  alt?: string;
   link: string;
+  text?: string;
   active?: boolean;
 }
 
-const MenuItem = ({ img, alt, link }: MenuItemProps) => {
+const MenuItem = ({ img, alt, link, text }: MenuItemProps) => {
   return (
     <li
-      className={`w-[16px] cursor-pointer md:w-[20px] lg:transition lg:hover:brightness-0 lg:hover:invert`}
+      className={`w-[16px] list-none cursor-pointer md:w-[20px] lg:transition lg:hover:brightness-0 lg:hover:invert ${
+        !img ? 'w-[auto] md:w-[auto] lg:w-[50px]' : ''
+      }`}
     >
       <NavLink
         to={link}
         className={({ isActive }) => (isActive ? 'brightness-0 invert' : '')}
       >
-        <img src={img} alt={alt} />
+        {img ? <img src={img} alt={alt} /> : <p>{text}</p>}
       </NavLink>
     </li>
   );

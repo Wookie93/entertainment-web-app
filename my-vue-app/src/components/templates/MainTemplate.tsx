@@ -1,4 +1,4 @@
-import Navigation from '../molecules/Navigation/Navigation';
+import Navigation from '../organism/Navigation/Navigation';
 import SearchBar from '../molecules/SearchBar/SearchBar';
 
 const MainTemplate = ({ children }: any) => {

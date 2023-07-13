@@ -40,7 +40,7 @@ section {
 }
 
 .btn {
-  @apply h-12 px-4 rounded-md cursor-pointer transition hover:brightness-50;
+  @apply h-12 px-4 rounded-md cursor-pointer transition hover:brightness-50 text-center;
 }
 
 .btn-primary {

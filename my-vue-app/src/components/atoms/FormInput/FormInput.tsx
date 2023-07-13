@@ -11,7 +11,7 @@ const FormInput = ({ type, label, placeholder }: FormItemProps) => {
       <input
         type={type}
         placeholder={placeholder ? placeholder : label}
-        className="pl-4 pb-5 bg-transparent border-b border-gray-blue caret-bcg-primary focus-visible:outline-none focus-visible:border-white focus-visible:border-b-2"
+        className="w-full pl-4 pb-3 bg-transparent border-b border-gray-blue caret-bcg-primary focus-visible:outline-none focus-visible:border-white focus-visible:border-b-2"
       />
     </div>
   );

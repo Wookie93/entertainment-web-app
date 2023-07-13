@@ -1,24 +1,39 @@
+import { NavLink, Outlet } from 'react-router-dom';
 import Button from '../components/atoms/Button/Button';
 import Container from '../components/atoms/Containter/Container';
 import FormInput from '../components/atoms/FormInput/FormInput';
+import { useAuth } from '../lib/firebase-auth';
+import WrapWithLogo from '../components/atoms/WrapWithLogo/WrapWithLogo';
+import Form from '../components/organism/Form/Form';
 
 const LoginPage = () => {
+  const { handleSignInGoogle } = useAuth();
+
+  const handleSignIn = () => {};
+
   return (
-    <Container title="Login">
-      <form>
-        <div className="flex flex-col gap-6 mb-6">
+    <WrapWithLogo>
+      <Container title="Login">
+        <Form onSubmit={handleSignIn}>
           <FormInput type="text" label="Email address" />
           <FormInput type="text" label="Password" />
+        </Form>
+        <Button
+          type="submit"
+          classname="w-full mt-4"
+          text="Sign with Google"
+          onClick={handleSignInGoogle}
+          issecondary
+        />
+        <div className="flex justify-center gap-2 mt-6">
+          <p className="font-light">Don’t have an account?</p>
+          <NavLink to="/register" className="font-light text-bcg-primary">
+            Sign Up
+          </NavLink>
         </div>
-        <Button type="submit" text="Login to your account" />
-      </form>
-      <div className="flex gap-2 mt-6">
-        <p className="font-light">Don’t have an account?</p>
-        <a href="#" className="font-light text-bcg-primary">
-          Sign Up
-        </a>
-      </div>
-    </Container>
+        <Outlet />
+      </Container>
+    </WrapWithLogo>
   );
 };
 

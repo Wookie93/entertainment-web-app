@@ -3,9 +3,18 @@ interface ButtonProps {
   issecondary?: boolean;
   link?: string;
   text: string;
+  classname?: string;
+  onClick?: () => void;
 }
 
-const Button = ({ type, issecondary, text, link }: ButtonProps) => {
+const Button = ({
+  type,
+  issecondary,
+  text,
+  link,
+  classname,
+  onClick,
+}: ButtonProps) => {
   return (
     <>
       {type === 'submit' ? (
@@ -13,7 +22,8 @@ const Button = ({ type, issecondary, text, link }: ButtonProps) => {
           type="submit"
           className={`btn ${
             issecondary ? 'btn-secondary' : 'btn-primary'
-          } font-light`}
+          } font-light ${classname}`}
+          onClick={onClick}
         >
           {text}
         </button>
@@ -21,7 +31,7 @@ const Button = ({ type, issecondary, text, link }: ButtonProps) => {
         <a
           className={`btn ${
             issecondary ? 'btn-secondary' : 'btn-primary'
-          } inline-block leading-[48px] font-light`}
+          } inline-block leading-[48px] font-light ${classname}`}
           href={link}
         >
           {text}
