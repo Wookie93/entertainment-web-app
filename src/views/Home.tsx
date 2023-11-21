@@ -1,0 +1,45 @@
+import { videosDB } from '../lib/firebase-db.tsx';
+
+import ItemList from '../components/atoms/ListGrid/ItemList.tsx';
+import MovieBox from '../components/molecules/MovieBox/MovieBox';
+import Trending from '../components/organism/Trending/Trending.tsx';
+import { Outlet } from 'react-router-dom';
+
+const HomePage = () => {
+  const arrOfKeys = [...videosDB.keys()];
+
+  const randomIndex = () => {
+    const randomNumbers: number[] = [];
+    const count = arrOfKeys.length >= 24 ? 24 : arrOfKeys.length;
+
+    while (randomNumbers.length < count) {
+      const randomNumber =
+        Math.floor(Math.random() * (arrOfKeys.length - 0 + 1)) + 0;
+      if (!randomNumbers!.includes(randomNumber)) {
+        randomNumbers.push(randomNumber);
+      }
+    }
+
+    return randomNumbers;
+  };
+
+  const arrOfIndexes = randomIndex();
+
+  return (
+    <>
+      <Trending />
+      <ItemList title="Recommended for you">
+        {arrOfIndexes.map((value, index) => (
+          <MovieBox
+            key={index}
+            data={videosDB.get(arrOfKeys[value])}
+            uid={arrOfKeys[value]}
+          />
+        ))}
+      </ItemList>
+      <Outlet />
+    </>
+  );
+};
+
+export default HomePage;

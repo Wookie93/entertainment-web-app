@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 16px;
+}
+
+*,
+*::after,
+*::before {
+  font-family: 'Outfit', 'sans';
+  @apply text-base font-medium;
+}
+
+body {
+  @apply bg-bcg-dark text-white;
+}
+
+h2 {
+  @apply tracking-[-0.3125px] font-light text-xl sm:text-[32px];
+}
+
+section {
+  @apply mb-6 sm:mb-11 lg:mb-9 xl:mb-12;
+}
+
+.dotted span::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  margin: 0 6px 0 2px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.dotted span:last-child::after {
+  display: none;
+}
+
+.btn {
+  @apply h-12 px-4 rounded-md cursor-pointer transition hover:brightness-50 text-center;
+}
+
+.btn-primary {
+  @apply bg-bcg-primary text-white;
+}
+
+.btn-secondary {
+  @apply bg-white text-black;
+}
+
+.visually-hidden {
+  border-width: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
+}

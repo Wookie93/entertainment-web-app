@@ -1,0 +1,7 @@
+.slick-slider .slick-list {
+  width: 100%;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 1260px;
+  }
+}
