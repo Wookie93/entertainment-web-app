@@ -9,7 +9,7 @@ const PlayButton = () => {
       href="#"
       onClick={PlayVideo}
     >
-      <img src="src/assets/icon-play.svg" alt="play ico" />
+      <img src="../assets/icon-play.svg" alt="play ico" />
       <span>Play</span>
     </a>
   );

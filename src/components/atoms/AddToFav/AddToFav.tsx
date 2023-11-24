@@ -22,8 +22,8 @@ const AddToFav = ({ uid }: { uid: string }) => {
       <img
         src={
           ifBookmarked
-            ? 'src/assets/icon-bookmark-full.svg'
-            : 'src/assets/icon-bookmark-empty.svg'
+            ? '../assets/icon-bookmark-full.svg'
+            : '../assets/icon-bookmark-empty.svg'
         }
         alt="bookmark button"
       />
