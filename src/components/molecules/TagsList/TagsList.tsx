@@ -12,7 +12,7 @@ const TagsList = ({
   return (
     <div className="flex opacity-75 dotted">
       <Tag data={{ name: `${year}` }} />
-      <Tag data={{ name: category, image: 'src/assets/tags/movie-tag.svg' }} />
+      <Tag data={{ name: category, image: '../assets/tags/movie-tag.svg' }} />
       <Tag data={{ name: rating }} />
     </div>
   );

@@ -169,7 +169,7 @@ const Trending = () => {
   }, [trendingMoviesSnap]);
 
   return (
-    <section className="px-3.5 sm:px-0">
+    <section className="px-3.5 min-h-[180px] sm:px-0">
       <h2 className="mb-3 sm:mb-6 md:mb-8 lg:mb-6">Trending</h2>
       <div>
         {trending.length > 0 ? (

@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-
 import { MenuItemProps } from '../../../../interfaces/ComponentsProps';
 
 const MenuItem = ({ img, alt, link, text }: MenuItemProps) => {

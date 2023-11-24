@@ -47,7 +47,6 @@ const AuthContext = createContext<AuthType | null>(null);
 /// PROVIDER
 export const AuthProvider = ({ children }: any) => {
   const [user, setUserData] = useState<User | null>(null);
-
   const [isEmailVerified, setVerifiedStatus] = useState(false);
 
   useEffect(() => {
@@ -88,7 +87,6 @@ export const AuthProvider = ({ children }: any) => {
         handleSignOut();
       }
     } catch (e: any) {
-      console.log(e);
       switch (e.code) {
         case 'auth/user-not-found':
           setErrorMessage({

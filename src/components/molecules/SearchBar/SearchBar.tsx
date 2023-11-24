@@ -29,9 +29,9 @@ const SearchBar = () => {
   });
 
   return (
-    <div className="flex gap-4 w-full px-4 mb-6 sm:px-0 md:mb-10 xl:mb-9">
+    <div className="flex gap-4 w-full px-4 mb-6 min-h-[20px] sm:px-0 md:mb-10 xl:mb-9">
       <img
-        src="src/assets/icon-search.svg"
+        src="../assets/icon-search.svg"
         alt=""
         className="w-[24px] sm:w-auto"
       />

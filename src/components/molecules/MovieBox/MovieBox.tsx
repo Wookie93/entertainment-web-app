@@ -12,7 +12,6 @@ const MovieBox = ({ data, uid, isTrending = false }: MovieBoxProps) => {
 
   if (!data) return;
   const { year = 2020, rating = 'PB', category = 'Movie' } = data;
-  console.log(data.thumbnail);
 
   useEffect(() => {
     window.addEventListener('resize', () => setWidth(window.innerWidth));
@@ -40,8 +39,10 @@ const MovieBox = ({ data, uid, isTrending = false }: MovieBoxProps) => {
               className={`rounded-lg ${
                 isHovered && screenWidth > 1023 ? 'brightness-50' : ''
               }`}
-              src="src/assets/empty-image.svg"
+              src="../assets/empty-image.svg"
               alt="empty image ico"
+              width={isTrending ? 470 : 278}
+              height={isTrending ? 230 : 170}
             />
           ) : (
             <picture>
@@ -71,6 +72,8 @@ const MovieBox = ({ data, uid, isTrending = false }: MovieBoxProps) => {
                     ? 'relative w-[240px] rounded-lg sm:w-[470px] md:h-[230px]'
                     : 'min-h-[110px]'
                 } ${isHovered && screenWidth > 1023 ? 'brightness-50' : ''}`}
+                width={isTrending ? 470 : 278}
+                height={isTrending ? 230 : 170}
               />
             </picture>
           )}
@@ -79,8 +82,8 @@ const MovieBox = ({ data, uid, isTrending = false }: MovieBoxProps) => {
       <div
         className={
           isTrending
-            ? 'absolute bottom-4 left-4 md:bottom-6 md:left-6 lg:bottom-5 lg:left-6'
-            : 'mt-1'
+            ? 'absolute bottom-4 left-4 min-h-[40px] md:bottom-6 md:left-6 lg:bottom-5 lg:left-6'
+            : 'mt-1 min-h-[40px]'
         }
       >
         <TagsList year={year | 0} rating={rating} category={category} />
