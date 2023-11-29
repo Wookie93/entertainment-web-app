@@ -8,7 +8,7 @@ const Navigation = () => {
   return (
     <nav className="flex bg-bcg-light justify-between items-center p-4 mb-6 min-h-[56px] sm:mt-6 sm:p-5 sm:rounded-[10px] md:px-6 md:py-5 md:mb-7 lg:max-h-[960px] lg:h-screen lg:p-9 lg:flex-col lg:mt-8 lg:justify-start lg:rounded-[20px]">
       <div className="w-[25px] md:w-[32px]">
-        <img src="../assets/logo.svg" alt="logo" />
+        <img src="../assets/logo.svg" alt="logo" width={32} height={26} />
       </div>
       <Menu />
 
@@ -22,6 +22,8 @@ const Navigation = () => {
             className="h-full rounded-full"
             src={user.photoURL ? user.photoURL : '../assets/image-avatar.png'}
             alt="user profile image"
+            width={40}
+            height={40}
           />
         </div>
       )}

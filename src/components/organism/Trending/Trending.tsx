@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { trendingMoviesSnap } from '../../../lib/firebase-db';
 
 import Slider from 'react-slick';
-import MovieBox from '../../molecules/MovieBox/MovieBox';
+import TrendingMovieBox from '../../molecules/TrendingMovieBox/TrendingMovieBox';
 
 import { DocumentData } from 'firebase/firestore';
 
@@ -174,14 +174,24 @@ const Trending = () => {
       <div>
         {trending.length > 0 ? (
           <Slider {...settings}>
-            {trending.map((movie: any, index: number) => (
-              <MovieBox
-                key={index}
-                data={movie.data}
-                uid={movie.key}
-                isTrending
-              />
-            ))}
+            {trending.map((movie: any, index: number) =>
+              index < 2 ? (
+                <TrendingMovieBox
+                  key={index}
+                  data={movie.data}
+                  uid={movie.key}
+                  isTrending
+                />
+              ) : (
+                <TrendingMovieBox
+                  key={index}
+                  data={movie.data}
+                  uid={movie.key}
+                  isTrending
+                  lazyLoading
+                />
+              )
+            )}
           </Slider>
         ) : (
           <div className="w-[240px] h-[140px] sm:w-[470px] sm:h-[230px] "></div>

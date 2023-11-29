@@ -34,6 +34,8 @@ const SearchBar = () => {
         src="../assets/icon-search.svg"
         alt=""
         className="w-[24px] sm:w-auto"
+        width={32}
+        height={32}
       />
       <div className="relative">
         <input

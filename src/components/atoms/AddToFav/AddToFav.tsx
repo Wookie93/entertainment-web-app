@@ -26,6 +26,8 @@ const AddToFav = ({ uid }: { uid: string }) => {
             : '../assets/icon-bookmark-empty.svg'
         }
         alt="bookmark button"
+        width={12}
+        height={14}
       />
     </button>
   );

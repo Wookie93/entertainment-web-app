@@ -29,13 +29,22 @@ const HomePage = () => {
     <>
       <Trending />
       <ItemList title="Recommended for you">
-        {arrOfIndexes.map((value, index) => (
-          <MovieBox
-            key={index}
-            data={videosDB.get(arrOfKeys[value])}
-            uid={arrOfKeys[value]}
-          />
-        ))}
+        {arrOfIndexes.map((value, index) =>
+          index < 3 ? (
+            <MovieBox
+              key={index}
+              data={videosDB.get(arrOfKeys[value])}
+              uid={arrOfKeys[value]}
+            />
+          ) : (
+            <MovieBox
+              key={index}
+              data={videosDB.get(arrOfKeys[value])}
+              uid={arrOfKeys[value]}
+              lazyLoading
+            />
+          )
+        )}
       </ItemList>
       <Outlet />
     </>

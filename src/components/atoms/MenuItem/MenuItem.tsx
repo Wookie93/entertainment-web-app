@@ -12,7 +12,11 @@ const MenuItem = ({ img, alt, link, text }: MenuItemProps) => {
         to={link}
         className={({ isActive }) => (isActive ? 'brightness-0 invert' : '')}
       >
-        {img ? <img src={img} alt={alt} /> : <p>{text}</p>}
+        {img ? (
+          <img src={img} alt={alt} width={20} height={20} />
+        ) : (
+          <p>{text}</p>
+        )}
       </NavLink>
     </li>
   );

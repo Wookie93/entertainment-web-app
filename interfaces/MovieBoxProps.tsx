@@ -1,5 +1,6 @@
 export interface MovieBoxProps {
   isTrending?: boolean;
+  lazyLoading?: boolean;
   uid: string;
   data: {
     title: string;

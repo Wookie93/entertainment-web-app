@@ -17,9 +17,18 @@ const ListPage = ({ type }: { type: string }) => {
     <>
       {arrOfVideos.length > 0 ? (
         <ItemList title={type === 'movies' ? 'Movies' : 'TV Series'}>
-          {arrOfVideos.map((movie: any, index: number) => (
-            <MovieBox key={index} data={movie.data} uid={movie.key} />
-          ))}
+          {arrOfVideos.map((movie: any, index: number) =>
+            index < 3 ? (
+              <MovieBox key={index} data={movie.data} uid={movie.key} />
+            ) : (
+              <MovieBox
+                key={index}
+                data={movie.data}
+                uid={movie.key}
+                lazyLoading
+              />
+            )
+          )}
         </ItemList>
       ) : (
         <LoadingSpinner />
