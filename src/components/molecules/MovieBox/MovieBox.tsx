@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PlayButton from '../../atoms/PlayButton/PlayButton.tsx';
 import AddToFav from '../../atoms/AddToFav/AddToFav.tsx';
 import TagsList from '../TagsList/TagsList.tsx';
+import ProgressiveImg from '../../atoms/ProgressiveImage/ProgressiveImage/ProgressiveImage.tsx';
 
 import { MovieBoxProps } from 'interfaces/MovieBoxProps.tsx';
 
@@ -42,22 +43,16 @@ const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
               loading={lazyLoading ? 'lazy' : 'eager'}
             />
           ) : (
-            <picture>
-              <source
-                srcSet={data.thumbnail.regular?.medium}
-                media="(max-width: 1024px)"
-              />
-              <img
-                src={data.thumbnail.regular?.large}
-                alt={data.title}
-                className={`rounded-lg 'min-h-[110px]' ${
-                  isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-                }`}
-                width={278}
-                height={170}
-                loading={lazyLoading ? 'lazy' : 'eager'}
-              />
-            </picture>
+            <ProgressiveImg
+              image={data.thumbnail.regular?.large}
+              classname={`rounded-lg min-h-[110px] ${
+                isHovered && screenWidth > 1023 ? 'brightness-50' : ''
+              }`}
+              placeholderClassname="h-[173px] w-[280px] max-w-[164px] sm:max-w-[220px] lg:max-w-[280px] lg:max-h-[173px]"
+              alt={data.title}
+              width={278}
+              height={170}
+            />
           )}
         </a>
       </div>

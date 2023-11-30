@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PlayButton from '../../atoms/PlayButton/PlayButton.tsx';
 import AddToFav from '../../atoms/AddToFav/AddToFav.tsx';
 import TagsList from '../TagsList/TagsList.tsx';
+import ProgressiveImg from '../../atoms/ProgressiveImage/ProgressiveImage/ProgressiveImage.tsx';
 
 import { MovieBoxProps } from 'interfaces/MovieBoxProps.tsx';
 
@@ -42,22 +43,31 @@ const TrendingMovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
               loading={lazyLoading ? 'lazy' : 'eager'}
             />
           ) : (
-            <picture>
-              <source
-                srcSet={data.thumbnail.trending?.small}
-                media="(max-width: 640px)"
-              />
-              <img
-                src={data.thumbnail.trending?.large}
-                alt={data.title}
-                className={`rounded-lg relative w-[240px] sm:w-[470px] md:h-[230px] ${
-                  isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-                }`}
-                width={470}
-                height={230}
-                loading={lazyLoading ? 'lazy' : 'eager'}
-              />
-            </picture>
+            <ProgressiveImg
+              image={data.thumbnail.trending?.large}
+              classname={`rounded-lg relative w-[240px] sm:w-[470px] md:h-[230px] ${
+                isHovered && screenWidth > 1023 ? 'brightness-50' : ''
+              }`}
+              alt={data.title}
+              width={470}
+              height={230}
+            />
+            // <picture>
+            //   <source
+            //     srcSet={data.thumbnail.trending?.small}
+            //     media="(max-width: 640px)"
+            //   />
+            //   <img
+            //     src={data.thumbnail.trending?.large}
+            //     alt={data.title}
+            //     className={`rounded-lg relative w-[240px] sm:w-[470px] md:h-[230px] ${
+            //       isHovered && screenWidth > 1023 ? 'brightness-50' : ''
+            //     }`}
+            //     width={470}
+            //     height={230}
+            //     loading={lazyLoading ? 'lazy' : 'eager'}
+            //   />
+            // </picture>
           )}
         </a>
       </div>
