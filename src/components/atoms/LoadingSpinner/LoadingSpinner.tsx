@@ -2,7 +2,7 @@ import '../../../assets/styles/spinner.css';
 
 const LoadingSpinner = () => {
   return (
-    <div>
+    <div className="h-screen py-[100px]">
       <div className="spinner">
         <div className="rect1"></div>
         <div className="rect2"></div>

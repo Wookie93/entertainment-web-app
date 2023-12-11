@@ -31,29 +31,17 @@ const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
       <div className="relative">
         {isHovered && screenWidth > 1023 ? <PlayButton /> : null}
         <a href="#">
-          {data.thumbnail.none === '' ? (
-            <img
-              className={`rounded-lg object-cover h-[110px] md:h-[140px] lg:h-[173px]	${
-                isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-              }`}
-              src="../assets/empty-image.svg"
-              alt="empty image ico"
-              width={278}
-              height={170}
-              loading={lazyLoading ? 'lazy' : 'eager'}
-            />
-          ) : (
-            <ProgressiveImg
-              image={data.thumbnail.regular?.large}
-              classname={`rounded-lg min-h-[110px] ${
-                isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-              }`}
-              placeholderClassname="h-[173px] w-[280px] max-w-[164px] sm:max-w-[220px] lg:max-w-[280px] lg:max-h-[173px]"
-              alt={data.title}
-              width={278}
-              height={170}
-            />
-          )}
+          <ProgressiveImg
+            image={data.thumbnail.regular?.small}
+            classname={`rounded-lg min-h-[110px] object-cover aspect-[1.5/1] md:aspect-[1.6/1] ${
+              isHovered && screenWidth > 1023 ? 'brightness-50' : ''
+            }`}
+            alt={data.title}
+            width={278}
+            height={170}
+            thumbnail={data.thumbnail.none}
+            lazyLoading={lazyLoading}
+          />
         </a>
       </div>
       <div className="mt-1 min-h-[40px]">

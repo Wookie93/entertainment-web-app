@@ -12,6 +12,7 @@ import { User, updateProfile } from 'firebase/auth';
 const db = getFirestore(app);
 const storage = getStorage(app);
 const dbRef = collection(db, 'Movies');
+let firstTrending = null;
 
 /// GET All MOVIES
 const videosSnap = await getDocs(dbRef);
@@ -25,6 +26,17 @@ videosSnap.forEach((doc) => {
 //// GET TRENDINGS
 const trendingMoviesSnap = await getDocs(
   query(dbRef, where('isTrending', '==', true))
+);
+
+trendingMoviesSnap.docs.forEach((doc, index) => {
+  if (index === 0) firstTrending = { id: doc.id, data: doc.data() };
+  else return;
+});
+console.log(firstTrending);
+
+/// GET PLACEHOLDERIMAGE
+const placeholderImage = await getDownloadURL(
+  ref(storage, `/thumbnails/${firstTrending!.id}/trending/large.jpg`)
 );
 
 /// GET ONLY MOVIES
@@ -62,4 +74,5 @@ export {
   videosSnap,
   moviesSnap,
   tvSeriesSnap,
+  placeholderImage,
 };

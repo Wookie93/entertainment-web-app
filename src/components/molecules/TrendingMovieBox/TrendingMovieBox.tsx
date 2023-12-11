@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 
 import PlayButton from '../../atoms/PlayButton/PlayButton.tsx';
 import AddToFav from '../../atoms/AddToFav/AddToFav.tsx';
@@ -7,7 +7,7 @@ import ProgressiveImg from '../../atoms/ProgressiveImage/ProgressiveImage/Progre
 
 import { MovieBoxProps } from 'interfaces/MovieBoxProps.tsx';
 
-const TrendingMovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
+const TrendingMovieBox = memo(({ data, uid, lazyLoading }: MovieBoxProps) => {
   const [isHovered, setHover] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
 
@@ -31,44 +31,17 @@ const TrendingMovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
       <div className="relative">
         {isHovered && screenWidth > 1023 ? <PlayButton /> : null}
         <a href="#">
-          {data.thumbnail.none === '' ? (
-            <img
-              className={`rounded-lg object-cover h-[110px] md:h-[140px] lg:h-[173px] ${
-                isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-              }`}
-              src="../assets/empty-image.svg"
-              alt="empty image ico"
-              width={470}
-              height={230}
-              loading={lazyLoading ? 'lazy' : 'eager'}
-            />
-          ) : (
-            <ProgressiveImg
-              image={data.thumbnail.trending?.large}
-              classname={`rounded-lg relative w-[240px] sm:w-[470px] md:h-[230px] ${
-                isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-              }`}
-              alt={data.title}
-              width={470}
-              height={230}
-            />
-            // <picture>
-            //   <source
-            //     srcSet={data.thumbnail.trending?.small}
-            //     media="(max-width: 640px)"
-            //   />
-            //   <img
-            //     src={data.thumbnail.trending?.large}
-            //     alt={data.title}
-            //     className={`rounded-lg relative w-[240px] sm:w-[470px] md:h-[230px] ${
-            //       isHovered && screenWidth > 1023 ? 'brightness-50' : ''
-            //     }`}
-            //     width={470}
-            //     height={230}
-            //     loading={lazyLoading ? 'lazy' : 'eager'}
-            //   />
-            // </picture>
-          )}
+          <ProgressiveImg
+            image={data.thumbnail.trending?.large}
+            classname={`rounded-lg relative object-cover w-full aspect-[2] ${
+              isHovered && screenWidth > 1023 ? 'brightness-50' : ''
+            }`}
+            alt={data.title}
+            width={470}
+            height={230}
+            thumbnail={data.thumbnail.none}
+            lazyLoading={lazyLoading}
+          />
         </a>
       </div>
       <div className="absolute bottom-4 left-4 min-h-[40px] md:bottom-6 md:left-6 lg:bottom-5 lg:left-6">
@@ -79,6 +52,6 @@ const TrendingMovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default TrendingMovieBox;

@@ -1,4 +1,4 @@
-import { videosDB } from '../lib/firebase-db.tsx';
+import { trendingMoviesSnap, videosDB } from '../lib/firebase-db.tsx';
 
 import ItemList from '../components/atoms/ListGrid/ItemList.tsx';
 import MovieBox from '../components/molecules/MovieBox/MovieBox';
@@ -22,9 +22,10 @@ const HomePage = () => {
 
     return randomNumbers;
   };
-
+  //<div className="bg-bcg-light w-full h-[180px]"></div>
   const arrOfIndexes = randomIndex();
 
+  console.log(trendingMoviesSnap.docs.length);
   return (
     <>
       <Trending />

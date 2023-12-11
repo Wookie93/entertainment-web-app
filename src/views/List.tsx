@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { useMemo } from 'react';
 import { moviesSnap, tvSeriesSnap } from '../lib/firebase-db';
 import { DocumentData } from 'firebase/firestore';
 import ItemList from '../components/atoms/ListGrid/ItemList';
@@ -7,28 +8,31 @@ import LoadingSpinner from '../components/atoms/LoadingSpinner/LoadingSpinner';
 
 const ListPage = ({ type }: { type: string }) => {
   const data = type === 'movies' ? moviesSnap : tvSeriesSnap;
-  const arrOfVideos: { key: string; data: DocumentData }[] = [];
+  // const arrOfVideos: { key: string; data: DocumentData }[] = [];
 
-  data.forEach((doc) => {
-    arrOfVideos.push({ key: doc.id, data: doc.data() });
-  });
+  const arrOfVideos = useMemo((): { key: string; data: DocumentData }[] => {
+    const result: { key: string; data: DocumentData }[] = [];
+    data.forEach((doc: DocumentData) => {
+      result.push({
+        key: doc.id,
+        data: doc.data(),
+      });
+    });
+    return result;
+  }, [data]);
 
   return (
     <>
       {arrOfVideos.length > 0 ? (
         <ItemList title={type === 'movies' ? 'Movies' : 'TV Series'}>
-          {arrOfVideos.map((movie: any, index: number) =>
-            index < 3 ? (
-              <MovieBox key={index} data={movie.data} uid={movie.key} />
-            ) : (
-              <MovieBox
-                key={index}
-                data={movie.data}
-                uid={movie.key}
-                lazyLoading
-              />
-            )
-          )}
+          {arrOfVideos.map((movie: any, index: number) => (
+            <MovieBox
+              key={index}
+              data={movie.data}
+              uid={movie.key}
+              lazyLoading={index >= 3}
+            />
+          ))}
         </ItemList>
       ) : (
         <LoadingSpinner />

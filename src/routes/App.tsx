@@ -8,7 +8,7 @@ function App() {
   const [state, setState] = useState(false);
 
   useEffect(() => {
-    if (db && storage) setTimeout(() => setState(true), 500);
+    if (db && storage) setTimeout(() => setState(true), 200);
   });
   return (
     <>

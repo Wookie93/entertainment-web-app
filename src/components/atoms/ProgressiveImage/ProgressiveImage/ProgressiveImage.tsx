@@ -3,35 +3,25 @@ import ProgressiveImage from 'react-progressive-graceful-image';
 const ProgressiveImg = ({
   image,
   classname,
-
   alt,
   width,
   height,
-  lazyLoading,
+  thumbnail,
 }: any) => {
   return (
-    <ProgressiveImage src={image} placeholder="../assets/placeholder.webp">
-      {(src, loading) => {
+    <ProgressiveImage
+      src={thumbnail === '' ? '../assets/empty-image.svg' : image}
+      placeholder="../assets/placeholder.webp"
+    >
+      {(src) => {
         return (
-          <div>
-            <img
-              className={`progressive-image ${
-                loading ? 'opacity-50' : 'opacity-100'
-              } ${classname}`}
-              src={src}
-              width={width}
-              height={height}
-              alt={alt}
-              loading={lazyLoading ? 'lazy' : 'eager'}
-            />
-            <noscript>
-              <img
-                className="progressive-image no-script"
-                src="../assets/empty-image.svg"
-                alt="image"
-              />
-            </noscript>
-          </div>
+          <img
+            className={`progressive-image ${classname}`}
+            src={src}
+            width={width}
+            height={height}
+            alt={alt}
+          />
         );
       }}
     </ProgressiveImage>
