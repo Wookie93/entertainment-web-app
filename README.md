@@ -2,8 +2,6 @@
 
 This is a solution to the [Entertainment web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/entertainment-web-app-J-UhgAW1X).
 
-Link to project: https://entertainment-web-app-87503.web.app
-
 ## Table of contents
 
 - [Overview](#overview)
@@ -14,8 +12,6 @@ Link to project: https://entertainment-web-app-87503.web.app
   - [Built with](#built-with)
   - [Goals](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
 
 ## Overview
 
