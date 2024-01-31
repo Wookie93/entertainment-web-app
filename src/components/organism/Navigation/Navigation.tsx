@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { useAuth } from '../../../lib/firebase-auth';
 import MenuItem from '../../atoms/MenuItem/MenuItem';
 import Menu from '../../molecules/Menu/Menu';
 
-const Navigation = () => {
+const Navigation = memo(() => {
   const { user } = useAuth();
 
   return (
@@ -29,6 +30,6 @@ const Navigation = () => {
       )}
     </nav>
   );
-};
+});
 
 export default Navigation;

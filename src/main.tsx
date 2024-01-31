@@ -15,6 +15,7 @@ import HomePage from './views/Home.tsx';
 import { AuthProvider } from './lib/firebase-auth.tsx';
 import RegisterPage from './views/Register.tsx';
 import ProtectedRoute from './helpers/ProtectedRoute.tsx';
+import ErrorPage from './views/404.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </>
   )
 );

@@ -32,7 +32,6 @@ trendingMoviesSnap.docs.forEach((doc, index) => {
   if (index === 0) firstTrending = { id: doc.id, data: doc.data() };
   else return;
 });
-console.log(firstTrending);
 
 /// GET PLACEHOLDERIMAGE
 const placeholderImage = await getDownloadURL(

@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }: any) => {
         case 'auth/wrong-password':
           setErrorMessage({
             ...newErrMsg,
-            general: 'Wrong password for this account',
+            general: 'Wrong email or password',
           });
           break;
         default:

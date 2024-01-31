@@ -8,7 +8,6 @@ import LoadingSpinner from '../components/atoms/LoadingSpinner/LoadingSpinner';
 
 const ListPage = ({ type }: { type: string }) => {
   const data = type === 'movies' ? moviesSnap : tvSeriesSnap;
-  // const arrOfVideos: { key: string; data: DocumentData }[] = [];
 
   const arrOfVideos = useMemo((): { key: string; data: DocumentData }[] => {
     const result: { key: string; data: DocumentData }[] = [];

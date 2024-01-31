@@ -54,3 +54,8 @@ While developing the project, I wanted to learn about and practice styling eleme
 In the future I would definitely like to work on optimizing the application, did a little refactoring and look for improvements.
 
 From the functionality I would like to add the ability to delete previously saved favorite videos
+To do:
+
+Przerobić że ładuje się nawigacja po prawej a potem reszta elementów
+poprawić ulubione
+dodać usuwanie

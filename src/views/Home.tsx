@@ -22,10 +22,9 @@ const HomePage = () => {
 
     return randomNumbers;
   };
-  //<div className="bg-bcg-light w-full h-[180px]"></div>
+
   const arrOfIndexes = randomIndex();
 
-  console.log(trendingMoviesSnap.docs.length);
   return (
     <>
       <Trending />
