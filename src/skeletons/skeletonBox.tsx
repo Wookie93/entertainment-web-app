@@ -1,6 +1,9 @@
 export const SkeletonBox = () => {
   return (
-    <div role="status" className="space-y-8 animate-pulse rtl:space-x-reverse ">
+    <div
+      role="status"
+      className="space-y-8 animate-pulse w-full max-w-[164px] sm:max-w-[220px] lg:max-w-[280px]"
+    >
       <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded dark:bg-gray-700">
         <svg
           className="w-10 h-10 text-gray-200 dark:text-gray-600"
