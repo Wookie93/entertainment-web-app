@@ -1,39 +1,64 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from 'react-router-dom';
-import App from './routes/App.tsx';
-import './assets/styles/index.css';
-import ListPage from './views/List.tsx';
-import FavouritePage from './views/Favourite.tsx';
-import LoginPage from './views/Login.tsx';
-import HomePage from './views/Home.tsx';
-import { AuthProvider } from './lib/firebase-auth.tsx';
-import RegisterPage from './views/Register.tsx';
-import ProtectedRoute from './helpers/ProtectedRoute.tsx';
-import ErrorPage from './views/404.tsx';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<App />}>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="movies" element={<ListPage type="movies" />} />
-        <Route path="tv-series" element={<ListPage type="tv-series" />} />
-        <Route path="favourites" element={<ProtectedRoute />}>
-          <Route index element={<FavouritePage />} />
-        </Route>
-      </Route>
-      <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
-      <Route path="*" element={<ErrorPage />} />
-    </>
-  )
-);
+import './assets/styles/index.css';
+
+import { AuthProvider } from './lib/firebase-auth.tsx';
+import ErrorPage from './routes/404.tsx';
+import App from './App.tsx';
+import LoginPage from './routes/Login.tsx';
+import RegisterPage from './routes/Register.tsx';
+import HomePage, { loader as homeLoader } from './routes/Home.tsx';
+import ListPage, { loader as listLoader } from './routes/List.tsx';
+import SearchResultPage from './routes/SearchResult.tsx';
+import ProtectedRoute from './helpers/ProtectedRoute.tsx';
+import FavouritePage from './routes/Favourite.tsx';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <HomePage />, loader: homeLoader },
+          {
+            path: 'movies',
+            element: <ListPage />,
+            loader: listLoader,
+          },
+          {
+            path: 'tv-series',
+            element: <ListPage />,
+            loader: listLoader,
+          },
+          {
+            path: 'search-result',
+            element: <SearchResultPage />,
+          },
+          {
+            path: 'favourites',
+            element: <ProtectedRoute />,
+            children: [{ index: true, element: <FavouritePage /> }],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/register',
+    element: <RegisterPage />,
+    errorElement: <ErrorPage />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import { videosDB } from '../lib/firebase-db';
 import { getBookmarkRef } from '../lib/firebase-bookmarked';
 import MovieBox from '../components/molecules/MovieBox/MovieBox';
@@ -27,7 +26,6 @@ const FavouritePage = () => {
           <MovieBox key={video[0]} data={video[1]} uid={video[0]} />
         ))}
       </ItemList>
-      <Outlet />
     </>
   );
 };

@@ -8,11 +8,11 @@ import {
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { app } from './firebase';
 import { User, updateProfile } from 'firebase/auth';
+import { createMapFromSnap } from '../helpers/helpers';
 
 const db = getFirestore(app);
 const storage = getStorage(app);
 const dbRef = collection(db, 'Movies');
-let firstTrending = null;
 
 /// GET All MOVIES
 const videosSnap = await getDocs(dbRef);
@@ -23,30 +23,46 @@ videosSnap.forEach((doc) => {
   videosDB.set(doc.id, doc.data());
 });
 
-//// GET TRENDINGS
+async function getAllMovies() {
+  const videosSnap = await getDocs(dbRef);
+  const videosDB = new Map();
+  videosSnap.forEach((doc) => {
+    videosDB.set(doc.id, doc.data());
+  });
+
+  return videosDB;
+}
+
+///////  GET TRENDINGS
 const trendingMoviesSnap = await getDocs(
   query(dbRef, where('isTrending', '==', true))
 );
 
-trendingMoviesSnap.docs.forEach((doc, index) => {
-  if (index === 0) firstTrending = { id: doc.id, data: doc.data() };
-  else return;
-});
+async function getTrendingMovies() {
+  const trendingMoviesSnap = await getDocs(
+    query(dbRef, where('isTrending', '==', true))
+  );
+  const trendingArr = createMapFromSnap(trendingMoviesSnap);
+  return trendingArr;
+}
 
-/// GET PLACEHOLDERIMAGE
-const placeholderImage = await getDownloadURL(
-  ref(storage, `/thumbnails/${firstTrending!.id}/trending/large.jpg`)
-);
+//////  GET ONLY MOVIES
+async function getMovieSnap() {
+  const moviesSnap = await getDocs(
+    query(dbRef, where('category', '==', 'Movie'))
+  );
+  const moviesArr = createMapFromSnap(moviesSnap);
+  return moviesArr;
+}
 
-/// GET ONLY MOVIES
-const moviesSnap = await getDocs(
-  query(dbRef, where('category', '==', 'Movie'))
-);
-
-/// GET ONLY TV SERIES
-const tvSeriesSnap = await getDocs(
-  query(dbRef, where('category', '==', 'TV Series'))
-);
+//////  GET ONLY TV SERIES
+async function getTVSnap() {
+  const tvSeriesSnap = await getDocs(
+    query(dbRef, where('category', '==', 'TV Series'))
+  );
+  const tvseriesArr = createMapFromSnap(tvSeriesSnap);
+  return tvseriesArr;
+}
 
 /// Helper function to upload photo
 const handleImageProfile = async (userID: string, image: File, user: User) => {
@@ -71,7 +87,8 @@ export {
   trendingMoviesSnap,
   videosDB,
   videosSnap,
-  moviesSnap,
-  tvSeriesSnap,
-  placeholderImage,
+  getMovieSnap,
+  getTVSnap,
+  getAllMovies,
+  getTrendingMovies,
 };

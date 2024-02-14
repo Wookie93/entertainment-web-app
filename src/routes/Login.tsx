@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../lib/firebase-auth';
 
 // COMPONENTS
@@ -28,7 +28,6 @@ const LoginPage = () => {
             Sign Up
           </NavLink>
         </div>
-        <Outlet />
       </Container>
     </WrapWithLogo>
   );

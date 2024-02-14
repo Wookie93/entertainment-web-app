@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // COMPONENTS
 import Container from '../components/atoms/Containter/Container';
@@ -18,7 +18,6 @@ const RegisterPage = () => {
           </NavLink>
         </div>
       </Container>
-      <Outlet />
     </WrapWithLogo>
   );
 };

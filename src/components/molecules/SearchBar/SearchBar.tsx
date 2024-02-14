@@ -1,8 +1,11 @@
 import { useCombobox } from 'downshift';
 import { useState } from 'react';
 import { videosDB } from '../../../lib/firebase-db';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 const SearchBar = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ video: '' });
   const [result, setSearchResult] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const getMatchingMovies = ({
     inputValue,
@@ -15,6 +18,8 @@ const SearchBar = () => {
     );
     const newResult = filteredMovies.map((movie) => movie.title);
     setSearchResult(newResult);
+    setSearchParams({ video: inputValue || '' });
+    console.log(inputValue);
   };
 
   const {
@@ -27,6 +32,10 @@ const SearchBar = () => {
     items: result,
     onInputValueChange: ({ inputValue }) => getMatchingMovies({ inputValue }),
   });
+
+  const navigateToSearchResult = () => {
+    navigate('/search-result', { state: searchParams.get('video') });
+  };
 
   return (
     <div className="flex gap-4 w-full px-4 mb-6 min-h-[20px] sm:px-0 md:mb-10 xl:mb-9">
@@ -65,6 +74,9 @@ const SearchBar = () => {
             ))}
         </ul>
       </div>
+      {result.length > 0 ? (
+        <button onClick={navigateToSearchResult}>Search</button>
+      ) : null}
     </div>
   );
 };
