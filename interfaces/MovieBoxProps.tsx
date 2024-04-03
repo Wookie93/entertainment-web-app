@@ -1,4 +1,5 @@
 export interface MovieBoxProps {
+  key: string;
   isTrending?: boolean;
   lazyLoading?: boolean;
   uid: string;

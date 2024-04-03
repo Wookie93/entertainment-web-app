@@ -26,7 +26,6 @@ export async function loader({ request }: any) {
 
 const ListPage = () => {
   const data = useLoaderData() as any;
-  console.log(data);
 
   return (
     <>
@@ -40,7 +39,7 @@ const ListPage = () => {
             >
               {data.videos.map((movie: any, index: number) => (
                 <MovieBox
-                  key={index}
+                  key={movie.key + index}
                   data={movie.data}
                   uid={movie.key}
                   lazyLoading={index >= 3}

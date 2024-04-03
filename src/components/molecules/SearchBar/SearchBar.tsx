@@ -1,7 +1,7 @@
 import { useCombobox } from 'downshift';
 import { useState } from 'react';
-import { videosDB } from '../../../lib/firebase-db';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { videosDB } from '../../../lib/firebase-db';
 const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams({ video: '' });
   const [result, setSearchResult] = useState<string[]>([]);

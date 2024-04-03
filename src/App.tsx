@@ -1,10 +1,11 @@
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import MainTemplate from './components/templates/MainTemplate';
+import { useStoreActions } from './store/store';
 
 function App() {
-  const navigation = useNavigation();
+  const { getAllMovies } = useStoreActions();
+  getAllMovies();
 
-  console.log(navigation.state);
   return (
     <MainTemplate>
       <Outlet />

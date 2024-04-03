@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import {
-  checkIfBookmarked,
-  addMoviesToCollection,
-  removeMoviesFromCollection,
-} from '../../../lib/firebase-bookmarked';
-
 import PlayButton from '../../atoms/PlayButton/PlayButton.tsx';
 import AddToFav from '../../atoms/AddToFav/AddToFav.tsx';
 import TagsList from '../TagsList/TagsList.tsx';
@@ -16,7 +10,6 @@ import { MovieBoxProps } from 'interfaces/MovieBoxProps.tsx';
 const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
   const [isHovered, setHover] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
-  const [isBookmarked, setBookmarkedState] = useState(checkIfBookmarked(uid));
 
   if (!data) return;
   const { year, rating, category } = data;
@@ -28,24 +21,6 @@ const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
       window.removeEventListener('resize', () => setWidth(window.innerWidth));
   }, [screenWidth]);
 
-  const manageBookmarkedStaus = () => {
-    setBookmarkedState(checkIfBookmarked(uid));
-  };
-
-  const addToFav = () => {
-    addMoviesToCollection(uid);
-    setBookmarkedState(true);
-  };
-
-  const removeFromFav = () => {
-    removeMoviesFromCollection(uid);
-    setBookmarkedState(false);
-  };
-
-  // useEffect(() => {
-  //   setBookmarkedState(checkIfBookmarked(uid));
-  // }, []);
-
   return (
     <div
       className="max-w-[164px] sm:max-w-[220px] lg:max-w-[280px] relative rounded-lg"
@@ -53,11 +28,7 @@ const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
       onMouseLeave={() => setHover(false)}
       data-uid={uid}
     >
-      <AddToFav
-        isBookmarked={isBookmarked}
-        addToFav={addToFav}
-        removeFromFav={removeFromFav}
-      />
+      <AddToFav uid={uid} />
       <div className="relative">
         {isHovered && screenWidth > 1023 ? <PlayButton /> : null}
         <a href="#">

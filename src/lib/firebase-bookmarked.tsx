@@ -1,68 +1,64 @@
 import {
   doc,
   getDoc,
+  getDocs,
   updateDoc,
-  arrayUnion,
-  arrayRemove,
+  where,
+  query,
+  documentId,
+  onSnapshot,
 } from 'firebase/firestore';
-import { db } from './firebase-db';
+import { db, dbRef as Movies } from './firebase-db';
 import { auth } from './firebase';
-
-//// Tutaj zrobić tak, że jak wbijasz na podstronę z ulubionymi to pobiera się świeża lista
+import { createMapFromSnap } from '../helpers/helpers';
+import { useUserStore } from '../store/store';
 
 const bookmarkRef = doc(db, 'Database', 'Bookmarked');
 let docSnap = await getDoc(bookmarkRef);
 
-/// Update docSnap
-const getBookmarkRef = async () => {
-  if (!auth.currentUser) return;
-  const updatedCollection = await getDoc(bookmarkRef);
-  return updatedCollection.data()![auth.currentUser.uid];
-};
-
-/// Get bookmarked videos for current user
+/// Get bookmarked videos id for current user
 const bookmarkedCollection = auth.currentUser
   ? docSnap.data()![auth.currentUser.uid]
   : null;
 
-/// GET BOOKMARKED MOVIES FOR USER ---> zwracamy tablicę / przenieść do hooka
-const checkIfBookmarked = (uid: string) => {
-  if (!auth.currentUser || !docSnap.data()![auth.currentUser.uid]) return;
-  return bookmarkedCollection.includes(uid);
-};
+function getRealTimeMovies(collection: string[]) {
+  onSnapshot(
+    query(Movies, where(documentId(), 'in', collection)),
+    (querySnapshot) => {
+      const queryArr: any[] = [];
+      querySnapshot.forEach((doc) => queryArr.push(doc));
 
-/// ADD MOVIE TO COLLECTION
-const addMoviesToCollection = async (movieID: string) => {
-  if (!auth.currentUser) {
-    console.log('zaloguj się dzbanie');
-  } else {
-    const uid = auth.currentUser!.uid;
-    const ifUserExistInDB = docSnap.data()!.hasOwnProperty(uid);
-    if (ifUserExistInDB) {
-      await updateDoc(bookmarkRef, {
-        [uid]: arrayUnion(movieID),
-      });
-      docSnap = await getDoc(bookmarkRef);
-    } else {
-      await updateDoc(bookmarkRef, {
-        [uid]: [movieID],
-      });
-      docSnap = await getDoc(bookmarkRef);
+      const moviesArr = createMapFromSnap(queryArr);
+      useUserStore.setState({ userFavorites: moviesArr });
     }
+  );
+}
+
+/// GET BOOKMARKED
+async function getBookmarkedMovies() {
+  const moviesSnap = await getDocs(
+    query(Movies, where(documentId(), 'in', bookmarkedCollection))
+  );
+  const moviesArr = createMapFromSnap(moviesSnap);
+  return moviesArr;
+}
+
+// SYNCHRONIZE BOOKMARKED COLLECTION
+const synchronizeBookmarkedCollection = async (arrUIDs: string[]) => {
+  if (!auth.currentUser) return;
+  const uid = auth.currentUser!.uid;
+  const ifUserExistInDB = docSnap.data()!.hasOwnProperty(uid);
+
+  if (ifUserExistInDB) {
+    await updateDoc(bookmarkRef, {
+      [uid]: [...arrUIDs],
+    });
   }
 };
 
-const removeMoviesFromCollection = async (movieID: string) => {
-  const uid = auth.currentUser!.uid;
-  await updateDoc(bookmarkRef, {
-    [uid]: arrayRemove(movieID),
-  });
-};
-
 export {
-  addMoviesToCollection,
-  removeMoviesFromCollection,
-  checkIfBookmarked,
+  getRealTimeMovies,
   bookmarkedCollection,
-  getBookmarkRef,
+  getBookmarkedMovies,
+  synchronizeBookmarkedCollection,
 };

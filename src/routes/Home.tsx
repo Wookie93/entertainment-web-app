@@ -1,4 +1,4 @@
-import { getAllMovies, getTrendingMovies } from '../lib/firebase-db.tsx';
+import { getTrendingMovies } from '../lib/firebase-db.tsx';
 
 import ItemList from '../components/atoms/ListGrid/ItemList.tsx';
 import MovieBox from '../components/molecules/MovieBox/MovieBox.tsx';
@@ -6,36 +6,26 @@ import Trending from '../components/organism/Trending/Trending.tsx';
 import SkeletonHomepage from '../skeletons/skeletonHompage.tsx';
 import { useLoaderData, Await, defer } from 'react-router-dom';
 import { Suspense } from 'react';
+import { useUserStore } from '../store/store.tsx';
+import { getRandomVideosArray } from '../helpers/helpers.tsx';
 
 export async function loader() {
   async function getData() {
-    const videos = await getAllMovies();
     const trendingVideos = await getTrendingMovies();
-    const arrOfKeys = [...videos.keys()];
-    const randomNumbers: number[] = [];
-    const count = arrOfKeys.length >= 24 ? 24 : arrOfKeys.length;
-
-    while (randomNumbers.length < count) {
-      const randomNumber =
-        Math.floor(Math.random() * (arrOfKeys.length - 0 + 1)) + 0;
-      if (!randomNumbers!.includes(randomNumber)) {
-        randomNumbers.push(randomNumber);
-      }
-    }
-
-    return { randomNumbers, arrOfKeys, videos, trendingVideos };
+    return trendingVideos;
   }
   const data = getData();
 
   return defer({
-    data: data,
+    data,
   });
 }
 
 const HomePage = () => {
   const data = useLoaderData() as any;
+  const { allVideos } = useUserStore();
 
-  console.log(data.data);
+  const recommendedVideos = getRandomVideosArray(24, allVideos);
 
   return (
     <>
@@ -43,13 +33,13 @@ const HomePage = () => {
         <Await resolve={data.data}>
           {(data) => (
             <>
-              <Trending data={data.trendingVideos} />
+              <Trending data={data} />
               <ItemList title="Recommended for you">
-                {data.randomNumbers.map((value: number) => (
+                {recommendedVideos.map((video) => (
                   <MovieBox
-                    key={`${data.arrOfKeys[value]}a`}
-                    data={data.videos.get(data.arrOfKeys[value])}
-                    uid={data.arrOfKeys[value]}
+                    key={`${video.key}a`}
+                    data={video.data}
+                    uid={video.key}
                   />
                 ))}
               </ItemList>

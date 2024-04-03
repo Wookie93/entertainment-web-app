@@ -9,7 +9,7 @@ import FormInput from '../../atoms/FormInput/FormInput';
 import { myFormProps } from '../../../../interfaces/FormProps';
 
 // helper functions
-import { formValidation } from '../../../helpers/FormValidation';
+import { formValidation } from '../../../hooks/useFormValidation';
 
 const Form = ({ buttonText, type }: myFormProps) => {
   const initialState = {

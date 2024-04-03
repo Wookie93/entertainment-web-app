@@ -14,30 +14,17 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 const dbRef = collection(db, 'Movies');
 
-/// GET All MOVIES
-const videosSnap = await getDocs(dbRef);
-
-/// SET MOVIES DATABASE AS MAP
-const videosDB = new Map();
-videosSnap.forEach((doc) => {
-  videosDB.set(doc.id, doc.data());
-});
-
+////// GET ALL MOVIES
 async function getAllMovies() {
   const videosSnap = await getDocs(dbRef);
-  const videosDB = new Map();
-  videosSnap.forEach((doc) => {
-    videosDB.set(doc.id, doc.data());
-  });
+  const videosDB = createMapFromSnap(videosSnap);
 
   return videosDB;
 }
 
-///////  GET TRENDINGS
-const trendingMoviesSnap = await getDocs(
-  query(dbRef, where('isTrending', '==', true))
-);
+const videosDB = await getAllMovies();
 
+///////  GET TRENDINGS
 async function getTrendingMovies() {
   const trendingMoviesSnap = await getDocs(
     query(dbRef, where('isTrending', '==', true))
@@ -46,7 +33,7 @@ async function getTrendingMovies() {
   return trendingArr;
 }
 
-//////  GET ONLY MOVIES
+//////  GET ONLY MOVIES CATEGROY
 async function getMovieSnap() {
   const moviesSnap = await getDocs(
     query(dbRef, where('category', '==', 'Movie'))
@@ -55,7 +42,7 @@ async function getMovieSnap() {
   return moviesArr;
 }
 
-//////  GET ONLY TV SERIES
+//////  GET ONLY TV SERIES CATEGORY
 async function getTVSnap() {
   const tvSeriesSnap = await getDocs(
     query(dbRef, where('category', '==', 'TV Series'))
@@ -82,13 +69,12 @@ const handleImageProfile = async (userID: string, image: File, user: User) => {
 
 export {
   db,
+  dbRef,
   storage,
   handleImageProfile,
-  trendingMoviesSnap,
-  videosDB,
-  videosSnap,
   getMovieSnap,
   getTVSnap,
   getAllMovies,
   getTrendingMovies,
+  videosDB,
 };

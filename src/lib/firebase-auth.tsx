@@ -13,6 +13,7 @@ import {
 } from 'firebase/auth';
 import { app } from './firebase';
 import { handleImageProfile } from './firebase-db';
+import { useUserStore } from '../store/store';
 
 interface AuthType {
   user: User | null;
@@ -48,11 +49,13 @@ const AuthContext = createContext<AuthType | null>(null);
 export const AuthProvider = ({ children }: any) => {
   const [user, setUserData] = useState<User | null>(null);
   const [isEmailVerified, setVerifiedStatus] = useState(false);
+  const { actions } = useUserStore((state) => state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserData(user);
+        actions.getFavorites();
       } else {
         setUserData(null);
       }
