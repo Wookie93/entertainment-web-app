@@ -5,7 +5,7 @@ import MovieBox from '../components/molecules/MovieBox/MovieBox.tsx';
 import Trending from '../components/organism/Trending/Trending.tsx';
 import SkeletonHomepage from '../skeletons/skeletonHompage.tsx';
 import { useLoaderData, Await, defer } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import { useUserStore } from '../store/store.tsx';
 import { getRandomVideosArray } from '../helpers/helpers.tsx';
 
@@ -25,7 +25,10 @@ const HomePage = () => {
   const data = useLoaderData() as any;
   const { allVideos } = useUserStore();
 
-  const recommendedVideos = getRandomVideosArray(24, allVideos);
+  const recommendedVideos = useMemo(
+    () => getRandomVideosArray(24, allVideos),
+    [allVideos]
+  );
 
   return (
     <>

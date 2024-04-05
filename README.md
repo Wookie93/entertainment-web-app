@@ -42,6 +42,7 @@ This is a solution to the [Entertainment web app challenge on Frontend Mentor](h
 - TailwindCSS
 - [React](https://reactjs.org/) - JS library
 - Firebase
+- Zustand
 - Mobile-first workflow
 - Atomic design methodology
 
@@ -56,6 +57,4 @@ In the future I would definitely like to work on optimizing the application, did
 From the functionality I would like to add the ability to delete previously saved favorite videos
 To do:
 
-Przerobić że ładuje się nawigacja po prawej a potem reszta elementów
-poprawić ulubione
-dodać usuwanie
+https://pagespeed.web.dev/analysis/https-entertainment-web-app-87503-web-app/lbgkey61uj?form_factor=mobile

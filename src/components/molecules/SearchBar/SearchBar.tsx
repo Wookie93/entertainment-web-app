@@ -1,10 +1,14 @@
 import { useCombobox } from 'downshift';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { videosDB } from '../../../lib/firebase-db';
+import { useNavigate } from 'react-router-dom';
+import { useUserAllVideos } from '../../../store/store';
+import { MovieBoxProps, MovieBoxPropsArray } from 'interfaces/MovieBoxProps';
+
 const SearchBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ video: '' });
   const [result, setSearchResult] = useState<string[]>([]);
+  const [value, setInputValue] = useState<string>('');
+  const [resultVideos, setSearchResultVideos] = useState<MovieBoxPropsArray>();
+  const allVideos = useUserAllVideos();
   const navigate = useNavigate();
 
   const getMatchingMovies = ({
@@ -12,14 +16,15 @@ const SearchBar = () => {
   }: {
     inputValue: string | undefined;
   }) => {
-    const phrase = inputValue?.toLocaleLowerCase();
-    const filteredMovies = [...videosDB.values()].filter((movie) =>
-      movie.title.toLocaleLowerCase().includes(phrase)
+    const phrase = inputValue?.toLocaleLowerCase() || '';
+    const filteredMovies = allVideos.filter((movie: MovieBoxProps) =>
+      movie.data.title.toLocaleLowerCase().includes(phrase)
     );
-    const newResult = filteredMovies.map((movie) => movie.title);
+    const newResult = filteredMovies.map(
+      (movie: MovieBoxProps) => movie.data.title
+    );
     setSearchResult(newResult);
-    setSearchParams({ video: inputValue || '' });
-    console.log(inputValue);
+    setSearchResultVideos(filteredMovies);
   };
 
   const {
@@ -30,11 +35,15 @@ const SearchBar = () => {
     getItemProps,
   } = useCombobox<string>({
     items: result,
-    onInputValueChange: ({ inputValue }) => getMatchingMovies({ inputValue }),
+    onInputValueChange: ({ inputValue }) => {
+      getMatchingMovies({ inputValue });
+      setInputValue(inputValue || '');
+    },
   });
 
   const navigateToSearchResult = () => {
-    navigate('/search-result', { state: searchParams.get('video') });
+    navigate('/search-result', { state: { videos: resultVideos } });
+    setInputValue('');
   };
 
   return (
@@ -51,9 +60,8 @@ const SearchBar = () => {
           type="text"
           placeholder="Search for movies or TV series"
           className="text-base pl-1 sm:text-2xl bg-transparent sm:pl-2.5 grow"
-          {...getInputProps()}
+          {...getInputProps({ value: value })}
         />
-        {}
         <ul
           className={`absolute top-8 w-full max-h-[400px] py-2 px-3 overflow-y-scroll bg-bcg-light rounded-md z-50 ${
             !(isOpen && result.length) && 'hidden'

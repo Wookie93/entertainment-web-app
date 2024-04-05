@@ -76,3 +76,4 @@ export const useUserFavorites = () =>
   useUserStore((state) => state.userFavorites);
 export const useUserFavoritesUIDs = () =>
   useUserStore((state) => state.userFavoritesUIDs);
+export const useUserAllVideos = () => useUserStore((state) => state.allVideos);
