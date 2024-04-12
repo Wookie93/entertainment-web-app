@@ -11,8 +11,7 @@ const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
   const [isHovered, setHover] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
 
-  if (!data) return;
-  const { year, rating, category } = data;
+  // if (!data) return;
 
   useEffect(() => {
     window.addEventListener('resize', () => setWidth(window.innerWidth));
@@ -46,7 +45,11 @@ const MovieBox = ({ data, uid, lazyLoading }: MovieBoxProps) => {
         </a>
       </div>
       <div className="mt-1 min-h-[40px]">
-        <TagsList year={year} rating={rating} category={category} />
+        <TagsList
+          year={data?.year}
+          rating={data?.rating}
+          category={data?.category}
+        />
         <a className="leading-[19px] text-sm md:text-lg" href="#">
           {data.title}
         </a>

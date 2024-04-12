@@ -5,7 +5,7 @@ import MovieBox from '../components/molecules/MovieBox/MovieBox';
 
 const SearchResultPage = () => {
   const { state } = useLocation();
-  console.log(state);
+
   return (
     <>
       <ItemList title="Search result">

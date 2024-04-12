@@ -22,8 +22,6 @@ async function getAllMovies() {
   return videosDB;
 }
 
-const videosDB = await getAllMovies();
-
 ///////  GET TRENDINGS
 async function getTrendingMovies() {
   const trendingMoviesSnap = await getDocs(
@@ -76,5 +74,4 @@ export {
   getTVSnap,
   getAllMovies,
   getTrendingMovies,
-  videosDB,
 };

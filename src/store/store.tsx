@@ -11,6 +11,7 @@ interface UserStore {
   userFavoritesUIDs: any;
   userFavorites: any;
   allVideos: any;
+  openInfoModal: boolean;
   actions: {
     getFavorites: () => void;
     getAllMovies: () => void;
@@ -18,6 +19,7 @@ interface UserStore {
     checkIfBookmarked: (uid: string) => boolean;
     addFavorites: (uid: string) => void;
     removeFavorites: (uid: string) => void;
+    setModalState: (state: boolean) => void;
   };
 }
 
@@ -25,6 +27,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   userFavoritesUIDs: [],
   userFavorites: [],
   allVideos: [],
+  openInfoModal: false,
 
   actions: {
     getFavorites: async () => {
@@ -67,6 +70,10 @@ export const useUserStore = create<UserStore>()((set, get) => ({
       await synchronizeBookmarkedCollection(get().userFavoritesUIDs);
       get().actions.updateFavorites();
     },
+
+    setModalState: (state: boolean) => {
+      set(() => ({ openInfoModal: state }));
+    },
   },
 }));
 
@@ -77,3 +84,4 @@ export const useUserFavorites = () =>
 export const useUserFavoritesUIDs = () =>
   useUserStore((state) => state.userFavoritesUIDs);
 export const useUserAllVideos = () => useUserStore((state) => state.allVideos);
+export const useUserModal = () => useUserStore((state) => state.openInfoModal);

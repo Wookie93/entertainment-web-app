@@ -44,6 +44,7 @@ const SearchBar = () => {
   const navigateToSearchResult = () => {
     navigate('/search-result', { state: { videos: resultVideos } });
     setInputValue('');
+    setSearchResult([]);
   };
 
   return (

@@ -11,9 +11,6 @@ const TrendingMovieBox = memo(({ data, uid, lazyLoading }: MovieBoxProps) => {
   const [isHovered, setHover] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
 
-  if (!data) return;
-  const { year = 2020, rating = 'PB', category = 'Movie' } = data;
-
   useEffect(() => {
     window.addEventListener('resize', () => setWidth(window.innerWidth));
 
@@ -45,7 +42,11 @@ const TrendingMovieBox = memo(({ data, uid, lazyLoading }: MovieBoxProps) => {
         </a>
       </div>
       <div className="absolute bottom-4 left-4 min-h-[40px] md:bottom-6 md:left-6 lg:bottom-5 lg:left-6">
-        <TagsList year={year | 0} rating={rating} category={category} />
+        <TagsList
+          year={data.year}
+          rating={data.rating}
+          category={data.category}
+        />
         <a className="leading-[19px] md:text-2xl" href="#">
           {data.title}
         </a>
