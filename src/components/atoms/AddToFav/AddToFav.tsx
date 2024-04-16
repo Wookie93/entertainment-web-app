@@ -5,8 +5,9 @@ import { useAuth } from '../../../lib/firebase-auth';
 const AddToFav = ({ uid }: { uid: string }) => {
   const { addFavorites, removeFavorites, checkIfBookmarked, setModalState } =
     useStoreActions();
-  const [isBookmarked, setBookmarkedState] = useState(checkIfBookmarked(uid));
   const { user } = useAuth();
+
+  const [isBookmarked, setBookmarkedState] = useState(checkIfBookmarked(uid));
 
   const manageFavorites = () => {
     if (!user) {

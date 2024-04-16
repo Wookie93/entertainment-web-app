@@ -11,13 +11,20 @@ import { myFormProps } from '../../../../interfaces/FormProps';
 // helper functions
 import { formValidation } from '../../../hooks/useFormValidation';
 
-const Form = ({ buttonText, type }: myFormProps) => {
+const Form = ({ buttonText, type, fields }: myFormProps) => {
+  const initial = fields.reduce<{ [key: string]: string }>((acc, curr) => {
+    acc[curr.field] = '';
+    return acc;
+  }, {});
+
   const initialState = {
     email: '',
     password: '',
     repeatPassword: '',
     general: '',
   };
+
+  console.log(initial);
 
   const [image, setImage] = useState<File | null>(null);
   const [userData, setUserData] = useState(initialState);

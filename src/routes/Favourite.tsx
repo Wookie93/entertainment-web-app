@@ -5,7 +5,6 @@ import { useUserFavorites } from '../store/store';
 
 const FavouritePage = () => {
   const userFavorites = useUserFavorites();
-
   return (
     <>
       <ItemList title="Favourites">

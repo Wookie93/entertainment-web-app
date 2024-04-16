@@ -8,6 +8,7 @@ export type userData = {
 export interface myFormProps {
   buttonText: string;
   type: 'register' | 'login';
+  fields: { field: string; label: string }[];
 }
 
 export interface formValidationForm {

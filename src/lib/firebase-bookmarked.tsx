@@ -22,6 +22,11 @@ const bookmarkedCollection = auth.currentUser
   : null;
 
 function getRealTimeMovies(collection: string[]) {
+  if (collection.length === 0) {
+    useUserStore.setState({ userFavorites: [] });
+    return;
+  }
+
   onSnapshot(
     query(Movies, where(documentId(), 'in', collection)),
     (querySnapshot) => {
@@ -36,6 +41,7 @@ function getRealTimeMovies(collection: string[]) {
 
 /// GET BOOKMARKED
 async function getBookmarkedMovies() {
+  if (bookmarkedCollection.length === 0) return [];
   const moviesSnap = await getDocs(
     query(Movies, where(documentId(), 'in', bookmarkedCollection))
   );

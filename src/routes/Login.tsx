@@ -13,7 +13,15 @@ const LoginPage = () => {
   return (
     <WrapWithLogo>
       <Container title="Login">
-        <Form buttonText="Login to your account" type="login" />
+        <Form
+          buttonText="Login to your account"
+          type="login"
+          fields={[
+            { field: 'email', label: 'Email address' },
+            { field: 'password', label: 'Password' },
+            { field: 'repeatPassword', label: 'Repeat password' },
+          ]}
+        />
 
         <Button
           type="submit"

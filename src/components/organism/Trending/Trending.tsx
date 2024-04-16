@@ -14,7 +14,7 @@ const Trending = ({ data }: { data: [] }) => {
       <Slider {...settings}>
         {data.map((movie: any, index: number) => (
           <TrendingMovieBox
-            key={movie.uid}
+            key={movie.uid + index}
             index={index}
             data={movie.data}
             uid={movie.key}

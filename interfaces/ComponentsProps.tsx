@@ -26,3 +26,11 @@ export interface TagProp {
     image?: string;
   };
 }
+
+export interface ImageWrapProps {
+  isHovered: boolean;
+  screenWidth: number;
+  imageSmall: string | undefined;
+  alt: string;
+  thumbnail: string | undefined;
+}

@@ -61,3 +61,8 @@ section {
   white-space: nowrap !important;
   width: 1px !important;
 }
+
+#root.open {
+  filter: blur(8px);
+  pointer-events: none;
+}

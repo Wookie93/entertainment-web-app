@@ -12,6 +12,7 @@ interface UserStore {
   userFavorites: any;
   allVideos: any;
   openInfoModal: boolean;
+  mainRoot: Element;
   actions: {
     getFavorites: () => void;
     getAllMovies: () => void;
@@ -28,6 +29,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   userFavorites: [],
   allVideos: [],
   openInfoModal: false,
+  mainRoot: document.getElementById('root') as Element,
 
   actions: {
     getFavorites: async () => {
@@ -73,6 +75,10 @@ export const useUserStore = create<UserStore>()((set, get) => ({
 
     setModalState: (state: boolean) => {
       set(() => ({ openInfoModal: state }));
+
+      get().openInfoModal
+        ? get().mainRoot.classList.add('open')
+        : get().mainRoot.classList.remove('open');
     },
   },
 }));
