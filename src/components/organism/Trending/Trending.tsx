@@ -19,7 +19,6 @@ const Trending = ({ data }: { data: [] }) => {
             data={movie.data}
             uid={movie.key}
             isTrending
-            lazyLoading={index >= 2}
           />
         ))}
       </Slider>

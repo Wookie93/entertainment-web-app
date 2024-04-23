@@ -3,7 +3,7 @@ import { SkeletonList } from './skeletonList';
 const SkeletonHomepage = () => {
   return (
     <>
-      <div className="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+      <div className="h-[28px] bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
       <section>
         <div className="animate-pulse flex items-center justify-center w-full h-48 bg-gray-300 rounded dark:bg-gray-700">
           <svg

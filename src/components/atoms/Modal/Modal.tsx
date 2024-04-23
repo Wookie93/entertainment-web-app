@@ -23,7 +23,7 @@ const Modal = ({ content }: { content: string }) => {
   if (!modalState) return null;
 
   return createPortal(
-    <div className="fixed w-3/4 min-h-[200px] top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[99999] flex items-center justify-center bg-bcg-light rounded-[10px] ">
+    <div className="fixed w-3/4 min-h-[200px] max-w-[500px] top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[99999] flex items-center justify-center bg-bcg-light rounded-[10px] ">
       <button className="absolute top-[10px] right-[20px]" onClick={closeModal}>
         X
       </button>

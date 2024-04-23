@@ -53,11 +53,12 @@ export const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (!user) {
+        setUserData(null);
+        return;
+      } else {
         setUserData(user);
         actions.getFavorites();
-      } else {
-        setUserData(null);
       }
     });
   }, [user]);

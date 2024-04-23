@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import MainTemplate from './components/templates/MainTemplate';
 import { useStoreActions } from './store/store';
-import Modal from './components/atoms/Modal/Modal';
+
+const Modal = lazy(() => import('./components/atoms/Modal/Modal'));
 
 function App() {
   const { getAllMovies } = useStoreActions();
@@ -12,7 +14,9 @@ function App() {
       <MainTemplate>
         <Outlet />
       </MainTemplate>
-      <Modal content="Before adding favourites, please log in" />
+      <Suspense fallback={<></>}>
+        <Modal content="Before adding favourites, please log in" />
+      </Suspense>
     </>
   );
 }
