@@ -5,6 +5,7 @@ import MovieBox from '../components/molecules/MovieBox/MovieBox';
 import { useLoaderData, Await, defer } from 'react-router-dom';
 import { SkeletonList } from '../skeletons/skeletonList';
 import { Suspense } from 'react';
+import { MovieBoxProps } from 'interfaces/MovieBoxProps';
 
 export async function loader({ request }: any) {
   const url = new URL(request.url);
@@ -37,7 +38,7 @@ const ListPage = () => {
                 data.urlPathname.includes('movies') ? 'Movies' : 'TV Series'
               }
             >
-              {data.videos.map((movie: any, index: number) => (
+              {data.videos.map((movie: MovieBoxProps, index: number) => (
                 <MovieBox
                   key={movie.key + index}
                   data={movie.data}

@@ -11,15 +11,15 @@ This is a solution to the [Entertainment web app challenge on Frontend Mentor](h
 - [My process](#my-process)
   - [Built with](#built-with)
   - [Goals](#what-i-learned)
-  - [Continued development](#continued-development)
+  - [Tests](#tests)
 
 ## Overview
 
 ### Features
 
-- Connected to a data base on firebase
-- Possiblity to log in and sing in
-- Possibility for logged users to add movies to Favorites
+- Connected to a database (Firabe)
+- Possiblity to log in and sing in (with validation)
+- Possibility for logged users to add / remove movies from Favorites
 - Possibility to add user thumbnail
 - Serach bar (used downshift.js)
 - "Recommended for you" on the main page - every time you refresh it draws different videos
@@ -41,8 +41,10 @@ This is a solution to the [Entertainment web app challenge on Frontend Mentor](h
 - HTML5 markup
 - TailwindCSS
 - [React](https://reactjs.org/) - JS library
+- React Router
 - Firebase
 - Zustand
+- Playwright
 - Mobile-first workflow
 - Atomic design methodology
 
@@ -50,11 +52,6 @@ This is a solution to the [Entertainment web app challenge on Frontend Mentor](h
 
 While developing the project, I wanted to learn about and practice styling elements using TailwindCSS. Also, I emphasized the use of Atomic design methodology
 
-### Continued development
+### Tests
 
-In the future I would definitely like to work on optimizing the application, did a little refactoring and look for improvements.
-
-From the functionality I would like to add the ability to delete previously saved favorite videos
-To do:
-
-https://pagespeed.web.dev/analysis/https-entertainment-web-app-87503-web-app/lbgkey61uj?form_factor=mobile
+Added some e2e basic tests using Playwright

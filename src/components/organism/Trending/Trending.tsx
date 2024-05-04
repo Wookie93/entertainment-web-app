@@ -16,7 +16,7 @@ const Trending = ({ data }: { data: [] }) => {
           <TrendingMovieBox
             key={movie.uid + index}
             index={index}
-            data={movie.data}
+            video={movie.data}
             uid={movie.key}
             isTrending
           />

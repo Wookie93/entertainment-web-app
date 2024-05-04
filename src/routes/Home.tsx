@@ -31,14 +31,14 @@ const HomePage = () => {
   );
 
   return (
-    <>
+    <div>
       <Suspense fallback={<SkeletonHomepage />}>
         <Await resolve={data.data}>
           {(data) => (
             <>
               <Trending data={data} />
               <ItemList title="Recommended for you">
-                {recommendedVideos.map((video) => (
+                {recommendedVideos.map((video: any) => (
                   <MovieBox
                     key={`${video.key}a`}
                     data={video.data}
@@ -50,7 +50,7 @@ const HomePage = () => {
           )}
         </Await>
       </Suspense>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import { lazy, Suspense, StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { AuthProvider } from './lib/firebase-auth.tsx';
@@ -24,7 +24,11 @@ const router = createBrowserRouter([
       {
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <HomePage />, loader: homeLoader },
+          {
+            index: true,
+            element: <HomePage />,
+            loader: homeLoader,
+          },
           {
             path: 'movies',
             element: <ListPage />,
@@ -38,7 +42,7 @@ const router = createBrowserRouter([
           {
             path: 'search-result',
             element: (
-              <Suspense fallback={<></>}>
+              <Suspense fallback={<div></div>}>
                 <SearchResultPage />
               </Suspense>
             ),
@@ -72,7 +76,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const domNode = document.getElementById('root') as HTMLElement;
+const root = createRoot(domNode);
+
+root.render(
   <StrictMode>
     <AuthProvider>
       <RouterProvider router={router} />

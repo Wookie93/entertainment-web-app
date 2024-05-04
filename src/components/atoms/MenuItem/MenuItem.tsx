@@ -11,6 +11,8 @@ const MenuItem = ({ img, alt, link, text }: MenuItemProps) => {
       <NavLink
         to={link}
         className={({ isActive }) => (isActive ? 'brightness-0 invert' : '')}
+        test-id="nav-link"
+        aria-label={`link to ${link.slice(1)} page`}
       >
         {img ? (
           <img src={img} alt={alt} width={20} height={20} />

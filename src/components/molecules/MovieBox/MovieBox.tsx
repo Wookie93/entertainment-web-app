@@ -23,12 +23,13 @@ const MovieBox = ({ data, uid }: MovieBoxProps) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       data-uid={uid}
+      aria-label="movieBox"
     >
       <AddToFav uid={uid} />
       <ImageWrap
         isHovered={isHovered}
         screenWidth={screenWidth}
-        imageSmall={data.thumbnail.regular?.small}
+        imageSmall={data.thumbnail.regular?.small || undefined}
         alt={data.title}
         thumbnail={data.thumbnail.none}
       />

@@ -1,14 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import MainTemplate from './components/templates/MainTemplate';
-import { useStoreActions } from './store/store';
 
 const Modal = lazy(() => import('./components/atoms/Modal/Modal'));
 
 function App() {
-  const { getAllMovies } = useStoreActions();
-  getAllMovies();
-
   return (
     <>
       <MainTemplate>

@@ -7,7 +7,7 @@ import ProgressiveImg from '../../atoms/ProgressiveImage/ProgressiveImage/Progre
 
 import { MovieBoxProps } from 'interfaces/MovieBoxProps.tsx';
 
-const TrendingMovieBox = memo(({ data, uid, index }: MovieBoxProps) => {
+const TrendingMovieBox = memo(({ video, uid, index }: MovieBoxProps) => {
   const [isHovered, setHover] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
   const [preloadedImg, setPreloadedImg] = useState<any>();
@@ -19,11 +19,9 @@ const TrendingMovieBox = memo(({ data, uid, index }: MovieBoxProps) => {
       window.removeEventListener('resize', () => setWidth(window.innerWidth));
   }, [screenWidth]);
 
-  console.log(index);
-
   useEffect(() => {
     if (index === 0) {
-      const img = (new Image().src = data.thumbnail.trending?.large || '');
+      const img = (new Image().src = video.thumbnail.trending?.large || '');
       setPreloadedImg(img);
     }
   }, [preloadedImg]);
@@ -33,6 +31,7 @@ const TrendingMovieBox = memo(({ data, uid, index }: MovieBoxProps) => {
       className="relative rounded-lg w-[240px] sm:w-[470px]"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      aria-label="trendingBox"
     >
       <AddToFav uid={uid} />
       <div className="relative">
@@ -40,14 +39,14 @@ const TrendingMovieBox = memo(({ data, uid, index }: MovieBoxProps) => {
         <a href="#">
           {index! > 0 ? (
             <ProgressiveImg
-              image={data.thumbnail.trending?.large}
+              image={video.thumbnail.trending?.large}
               classname={`rounded-lg relative object-cover w-full aspect-[2] ${
                 isHovered && screenWidth > 1023 ? 'brightness-50' : ''
               }`}
-              alt={data.title}
+              alt={video.title}
               width={470}
               height={230}
-              thumbnail={data.thumbnail.none}
+              thumbnail={video.thumbnail.none}
             />
           ) : (
             <img
@@ -65,12 +64,12 @@ const TrendingMovieBox = memo(({ data, uid, index }: MovieBoxProps) => {
       </div>
       <div className="absolute bottom-4 left-4 min-h-[40px] md:bottom-6 md:left-6 lg:bottom-5 lg:left-6">
         <TagsList
-          year={data.year}
-          rating={data.rating}
-          category={data.category}
+          year={video.year}
+          rating={video.rating}
+          category={video.category}
         />
         <a className="leading-[19px] md:text-2xl" href="#">
-          {data.title}
+          {video.title}
         </a>
       </div>
     </div>

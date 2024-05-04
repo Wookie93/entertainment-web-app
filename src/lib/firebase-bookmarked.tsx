@@ -41,7 +41,7 @@ function getRealTimeMovies(collection: string[]) {
 
 /// GET BOOKMARKED
 async function getBookmarkedMovies() {
-  if (bookmarkedCollection.length === 0) return [];
+  if (!bookmarkedCollection) return [];
   const moviesSnap = await getDocs(
     query(Movies, where(documentId(), 'in', bookmarkedCollection))
   );
@@ -53,13 +53,9 @@ async function getBookmarkedMovies() {
 const synchronizeBookmarkedCollection = async (arrUIDs: string[]) => {
   if (!auth.currentUser) return;
   const uid = auth.currentUser!.uid;
-  const ifUserExistInDB = docSnap.data()!.hasOwnProperty(uid);
-
-  if (ifUserExistInDB) {
-    await updateDoc(bookmarkRef, {
-      [uid]: [...arrUIDs],
-    });
-  }
+  await updateDoc(bookmarkRef, {
+    [uid]: [...arrUIDs],
+  });
 };
 
 export {

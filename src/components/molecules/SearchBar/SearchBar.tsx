@@ -84,7 +84,9 @@ const SearchBar = () => {
         </ul>
       </div>
       {result.length > 0 ? (
-        <button onClick={navigateToSearchResult}>Search</button>
+        <button onClick={navigateToSearchResult} aria-label="search button">
+          Search
+        </button>
       ) : null}
     </div>
   );

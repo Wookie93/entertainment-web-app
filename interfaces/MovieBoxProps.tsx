@@ -27,5 +27,5 @@ export interface MovieBoxProps {
 }
 
 export interface MovieBoxPropsArray {
-  data: [MovieBoxProps];
+  video: [MovieBoxProps];
 }

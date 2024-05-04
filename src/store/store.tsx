@@ -45,6 +45,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
       set({
         allVideos: allVideos,
       });
+      console.log('all videos are loaded');
     },
 
     updateFavorites: () => {
@@ -59,6 +60,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
       set((state) => ({
         userFavoritesUIDs: [uid, ...state.userFavoritesUIDs],
       }));
+      console.log(get().userFavoritesUIDs);
       await synchronizeBookmarkedCollection(get().userFavoritesUIDs);
       get().actions.updateFavorites();
     },
